@@ -14,7 +14,9 @@ use Symfony\Component\Process\Process;
 
 class InstallCommand extends Command
 {
-    use InstallsApiStack, InstallsBladeStack, InstallsInertiaStacks;
+    use InstallsApiStack;
+    use InstallsBladeStack;
+    use InstallsInertiaStacks;
 
     /**
      * The name and signature of the console command.
@@ -133,7 +135,7 @@ class InstallCommand extends Command
      */
     protected function installMiddlewareAfter($after, $name, $group = 'web')
     {
-        $httpKernel = file_get_contents(app_path('Http/Kernel.php'));
+        $httpKernel = file_get_contents(app_path('HttpKernel.php'));
 
         $middlewareGroups = Str::before(Str::after($httpKernel, '$middlewareGroups = ['), '];');
         $middlewareGroup = Str::before(Str::after($middlewareGroups, "'$group' => ["), '],');
@@ -145,7 +147,7 @@ class InstallCommand extends Command
                 $middlewareGroup,
             );
 
-            file_put_contents(app_path('Http/Kernel.php'), str_replace(
+            file_put_contents(app_path('HttpKernel.php'), str_replace(
                 $middlewareGroups,
                 str_replace($middlewareGroup, $modifiedMiddlewareGroup, $middlewareGroups),
                 $httpKernel

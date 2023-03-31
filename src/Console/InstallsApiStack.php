@@ -22,12 +22,12 @@ trait InstallsApiStack
         // Middleware...
         $files->copyDirectory(__DIR__.'/../../stubs/api/app/Http/Middleware', app_path('Http/Middleware'));
 
-        $this->replaceInFile('// \Laravel\Sanctum\Http', '\Laravel\Sanctum\Http', app_path('Http/Kernel.php'));
+        $this->replaceInFile('// \Laravel\Sanctum\Http', '\Laravel\Sanctum\Http', app_path('HttpKernel.php'));
 
         $this->replaceInFile(
             '\Illuminate\Auth\Middleware\EnsureEmailIsVerified::class',
             '\App\Http\Middleware\EnsureEmailIsVerified::class',
-            app_path('Http/Kernel.php')
+            app_path('HttpKernel.php')
         );
 
         // Requests...
