@@ -20,7 +20,7 @@ trait InstallsApiStack
         $files->copyDirectory(__DIR__.'/../../stubs/api/app/Http/Controllers/Auth', app_path('Http/Controllers/Auth'));
 
         // Middleware...
-        $files->copyDirectory(__DIR__.'/../../stubs/api/app/Http/Middleware', app_path('Http/Middleware'));
+        $files->copyDirectory(__DIR__.'/../../stubs/api/app/Http/Middleware', app_path('Shared/Middleware'));
 
         $this->replaceInFile('// \Laravel\Sanctum\Http', '\Laravel\Sanctum\Http', app_path('HttpKernel.php'));
 
@@ -35,8 +35,8 @@ trait InstallsApiStack
         $files->copyDirectory(__DIR__.'/../../stubs/api/app/Http/Requests/Auth', app_path('Http/Requests/Auth'));
 
         // Providers...
-        $files->copyDirectory(__DIR__.'/../../stubs/api/app/Providers', app_path('Providers'));
-        $this->replaceInFile("HOME = '/home'", "HOME = '/dashboard'", app_path('Providers/RouteServiceProvider.php'));
+        $files->copyDirectory(__DIR__.'/../../stubs/api/app/Providers', app_path('Shared/Providers'));
+        $this->replaceInFile("HOME = '/home'", "HOME = '/dashboard'", app_path('Shared/Providers/RouteServiceProvider.php'));
 
         // Routes...
         copy(__DIR__.'/../../stubs/api/routes/api.php', base_path('routes/api.php'));
